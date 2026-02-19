@@ -1,0 +1,74 @@
+# HMARL-SOC Default Configuration
+# Matches paper hyperparameters exactly
+
+environment:
+  num_segments: 5
+  segment_names: [DMZ, Corporate, Development, DataCenter, Cloud]
+  hosts_per_segment: 40  # 200 total
+  num_tools: 15
+  attack_tactics: [T1595, T1190, T1059, T1021, T1048]
+  num_attack_phases: 5
+  max_steps: 200
+
+agents:
+  strategic_coordinator:
+    algorithm: PPO
+    obs_dim: 64
+    hidden_dim: 256
+    num_layers: 3
+    lr: 3.0e-4
+    clip_eps: 0.2
+    entropy_coeff: 0.01
+    temporal_abstraction_K: 10
+
+  threat_hunter:
+    algorithm: SAC
+    obs_dim: 128
+    action_dim: 16
+    hidden_dim: 256
+    num_layers: 3
+    lr: 3.0e-4
+    alpha: 0.2  # entropy coefficient
+    tau: 0.005
+
+  alert_triage:
+    algorithm: DQN
+    obs_dim: 64
+    num_actions: 4  # escalate, suppress, correlate, enrich
+    hidden_dim: 256
+    num_layers: 3
+    lr: 3.0e-4
+    eps_start: 1.0
+    eps_end: 0.05
+    eps_decay: 50000
+    target_update: 1000
+
+  response_orchestrator:
+    algorithm: MADDPG
+    obs_dim: 96
+    action_dim: 12
+    hidden_dim: 256
+    num_layers: 3
+    lr_actor: 3.0e-4
+    lr_critic: 3.0e-4
+    tau: 0.005
+
+training:
+  gamma: 0.99
+  replay_buffer_size: 1000000
+  batch_size: 256
+  num_episodes: 500000
+  eval_interval: 1000
+  eval_episodes: 100
+  num_seeds: 5
+  save_interval: 10000
+
+reward:
+  alpha: 1.0    # detection weight
+  beta: 1.5     # response weight
+  delta: -0.3   # cost penalty
+  lambda_fp: -2.0  # false positive penalty
+
+explainability:
+  num_heads: 4
+  d_k: 64
