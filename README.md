@@ -1,6 +1,6 @@
 # HMARL-SOC
 
-**Hierarchical Multi-Agent Reinforcement Learning for Autonomous Threat Hunting and Automated Incident Response in Enterprise Security Operations Centers**
+**Hierarchical Multi-Agent Reinforcement Learning for Autonomous SOC Operations**
 
 > Accompanying code for the paper submitted to ITC-CSCC 2026.
 
@@ -86,9 +86,8 @@ Or use **Google Colab** (free GPU): click the badge above ☝️
 
 ```bibtex
 @inproceedings{hmarl-soc2026,
-  title={HMARL-SOC: A Hierarchical Multi-Agent Reinforcement Learning Framework
-         for Autonomous Threat Hunting and Automated Incident Response
-         in Enterprise Security Operations Centers},
+  title={HMARL-SOC: Hierarchical Multi-Agent Reinforcement Learning
+         for Autonomous SOC Operations},
   author={Anonymous},
   booktitle={Proc. ITC-CSCC},
   year={2026}
