@@ -22,7 +22,7 @@ from hmarl_soc.agents.response_orchestrator import ResponseOrchestrator
 def evaluate(config: dict, checkpoint_path: str = None,
              num_episodes: int = 1000, seed: int = 42) -> dict:
     """Evaluate trained agents over num_episodes."""
-    device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
+    device = torch.device("cuda" if torch.cuda.is_available() else "mps" if torch.backends.mps.is_available() else "cpu")
     np.random.seed(seed)
     torch.manual_seed(seed)
     

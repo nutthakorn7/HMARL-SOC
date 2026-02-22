@@ -32,7 +32,7 @@ def train(config: dict, seed: int = 42, num_episodes: int = None,
     SC updates every K steps (temporal abstraction).
     Operational agents update every step.
     """
-    device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
+    device = torch.device("cuda" if torch.cuda.is_available() else "mps" if torch.backends.mps.is_available() else "cpu")
     print(f"Device: {device}, Seed: {seed}")
     
     # Seed everything
