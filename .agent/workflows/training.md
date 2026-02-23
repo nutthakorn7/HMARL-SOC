@@ -13,10 +13,11 @@ description: How to run HMARL-SOC training (optimized)
 source ~/.venvs/hmarl/bin/activate
 ```
 
-2. Run single seed (max speed):
+2. Run single seed:
 ```bash
 cd "/Users/pop7/Library/CloudStorage/OneDrive-MonsterConnectCo.,Ltd/Research/Submited_CF3 HMARL-SOC/code"
-python3 train_fast.py --config configs/default.yaml --episodes 10000 --seed 42 --workers 4 --fast-buffer
+python3 train_fast.py --config configs/default.yaml --episodes 10000 --seed 42 --workers 4
+# Add --fast-buffer ONLY for debug/testing (worse results but ~10% faster)
 ```
 
 3. Run all seeds (2 in parallel):
