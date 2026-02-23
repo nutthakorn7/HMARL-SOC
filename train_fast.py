@@ -127,7 +127,7 @@ def env_worker(worker_id: int, config: dict, seed: int, task_queue: Queue,
             transition = {
                 "obs_sc": obs["sc"], "obs_th": obs["th"],
                 "obs_at": obs["at"], "obs_ro": obs["ro"],
-                "act_sc": np.array([sc_action]) if directive else np.zeros(1),
+                "act_sc": directive if directive is not None else np.zeros(8),
                 "act_th": th_action, "act_at": np.array([at_action]),
                 "act_ro": ro_action,
                 "reward": reward, "done": float(done),

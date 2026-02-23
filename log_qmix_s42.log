@@ -1,0 +1,18 @@
+Device: cpu, Seed: 42
+Starting QMIX training: 10000 episodes
+============================================================
+Traceback (most recent call last):
+  File "/Users/pop7/Library/CloudStorage/OneDrive-MonsterConnectCo.,Ltd/Research/Submited_CF3 HMARL-SOC/code/train_qmix.py", line 281, in <module>
+    main()
+  File "/Users/pop7/Library/CloudStorage/OneDrive-MonsterConnectCo.,Ltd/Research/Submited_CF3 HMARL-SOC/code/train_qmix.py", line 277, in main
+    train_qmix(config, seed=args.seed, num_episodes=args.episodes, save_dir=args.save_dir)
+  File "/Users/pop7/Library/CloudStorage/OneDrive-MonsterConnectCo.,Ltd/Research/Submited_CF3 HMARL-SOC/code/train_qmix.py", line 181, in train_qmix
+    next_obs, reward, terminated, truncated, info = env.step(env_actions)
+                                                    ^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/pop7/Library/CloudStorage/OneDrive-MonsterConnectCo.,Ltd/Research/Submited_CF3 HMARL-SOC/code/hmarl_soc/env/soc_env.py", line 123, in step
+    obs = self._get_observations()
+          ^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/pop7/Library/CloudStorage/OneDrive-MonsterConnectCo.,Ltd/Research/Submited_CF3 HMARL-SOC/code/hmarl_soc/env/soc_env.py", line 164, in _get_observations
+    th_obs[base + 2:base + 10] = self.rng.normal(0, 0.2, 8)  # flow features
+                                 ^^^^^^^^^^^^^^^^^^^^^^^^^^
+KeyboardInterrupt

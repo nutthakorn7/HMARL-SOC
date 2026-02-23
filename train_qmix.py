@@ -84,9 +84,7 @@ class ReplayBuffer:
 
 def train_qmix(config, seed=42, num_episodes=10000, save_dir="checkpoints"):
     """Train QMIX baseline on the SOC environment."""
-    device = torch.device("cuda" if torch.cuda.is_available() 
-                          else "mps" if torch.backends.mps.is_available() 
-                          else "cpu")
+    device = torch.device("cpu")  # CPU avoids MPS NaN issues
     print(f"Device: {device}, Seed: {seed}")
     
     np.random.seed(seed)
@@ -155,11 +153,22 @@ def train_qmix(config, seed=42, num_episodes=10000, save_dir="checkpoints"):
                 actions_idx.append(a)
             
             # Convert discrete indices to environment actions
-            th_action = np.zeros(16)
-            th_action[actions_idx[0]] = 1.0  # one-hot for continuous
+            # TH: map 16 discrete bins to continuous intensity values
+            th_action = np.zeros(16, dtype=np.float32)
+            th_bin = actions_idx[0]
+            # Set per-segment intensities based on bin
+            for s in range(5):
+                th_action[s] = -1.0 + 2.0 * (th_bin / 15.0)  # uniform mapping
+            th_action[5:10] = 0.0  # scope = 0.5 after normalize
+            
             at_action = np.array([actions_idx[1]])
-            ro_action = np.zeros(12)
-            ro_action[actions_idx[2]] = 1.0
+            
+            # RO: map 12 discrete bins to continuous isolate/remediate
+            ro_action = np.zeros(12, dtype=np.float32)
+            ro_bin = actions_idx[2]
+            for s in range(5):
+                ro_action[s] = -1.0 + 2.0 * (ro_bin / 11.0)  # isolate
+                ro_action[s + 5] = -1.0 + 2.0 * (ro_bin / 11.0)  # remediate
             
             # No coordinator — use default directive
             env_actions = {

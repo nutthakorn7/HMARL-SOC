@@ -70,11 +70,13 @@ class ResponseOrchestrator:
         
         # ---- Critic update ----
         with torch.no_grad():
-            # Target actions from all agents (simplified: use current actions for others)
+            # Target actions from target actor
             next_action_ro = self.actor_target(next_obs)
-            # Replace RO actions in the combined action tensor
+            # Use target actions for next state Q-value
+            # Substitute RO's target actions into the combined action tensor
             all_next_actions = all_actions.clone()
-            # Assume RO actions are at the end
+            # RO actions are at the end (after SC 8 + TH 16 + AT 1 = 25)
+            all_next_actions[:, -self.action_dim:] = next_action_ro
             target_q = self.critic_target(all_next_obs, all_next_actions)
             target_value = rewards + (1 - dones) * self.gamma * target_q
         

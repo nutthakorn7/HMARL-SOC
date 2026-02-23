@@ -56,7 +56,9 @@ class SOCEnv(gym.Env):
         self.false_positives = 0
         self.true_positives = 0
         self.total_alerts_generated = 0
+        self.total_scans = 0  # total hosts scanned (for FPR denominator)
         self.attack_contained = False
+        self.sc_directive = np.zeros(8, dtype=np.float32)  # SC action cache
     
     def reset(self, seed=None, options=None) -> Tuple[Dict[str, np.ndarray], dict]:
         """Reset environment for new episode."""
@@ -72,7 +74,9 @@ class SOCEnv(gym.Env):
         self.false_positives = 0
         self.true_positives = 0
         self.total_alerts_generated = 0
+        self.total_scans = 0
         self.attack_contained = False
+        self.sc_directive = np.zeros(8, dtype=np.float32)
         
         obs = self._get_observations()
         info = {"step": 0}
@@ -98,7 +102,12 @@ class SOCEnv(gym.Env):
         # 2. Generate alerts (from attacker noise + legitimate traffic)
         self._generate_alerts(attack_result)
         
-        # 3. Process agent actions
+        # 3. Process SC directive (modulates other agents)
+        sc_action = actions.get("sc")
+        if sc_action is not None:
+            self.sc_directive = np.clip(np.asarray(sc_action, dtype=np.float32), -1, 1)
+        
+        # 4. Process agent actions (influenced by SC directive)
         th_result = self._process_threat_hunter(actions.get("th"))
         at_result = self._process_alert_triage(actions.get("at"))
         ro_result = self._process_response(actions.get("ro"))
@@ -224,22 +233,29 @@ class SOCEnv(gym.Env):
             self.alert_queue = self.alert_queue[-self.max_alerts:]
     
     def _process_threat_hunter(self, action: Optional[np.ndarray]) -> dict:
-        """Process Threat Hunter continuous actions."""
+        """Process Threat Hunter continuous actions. SC directive modulates scan priority."""
         result = {"detected_hosts": [], "false_scans": 0}
         if action is None:
             return result
         
         action = np.clip(action, -1, 1) if isinstance(action, np.ndarray) else np.zeros(self.action_dims["th"])
         
+        # SC directive[0:2] modulates scan priority per segment
+        sc_scan_boost = (self.sc_directive[0] + 1) / 2 * 0.3  # 0 to 0.3 boost
+        sc_scope_boost = (self.sc_directive[1] + 1) / 2 * 0.2  # 0 to 0.2 boost
+        
         # Action interpretation: first 5 = investigation intensity per segment,
         # next 5 = scope (depth of scan), rest = exploration params
         for seg_id in range(self.num_segments):
-            intensity = (action[seg_id] + 1) / 2  # normalize to [0,1]
-            scope = (action[seg_id + 5] + 1) / 2 if seg_id + 5 < len(action) else 0.5
+            intensity = (action[seg_id] + 1) / 2 + sc_scan_boost  # SC boosts intensity
+            intensity = min(1.0, intensity)
+            scope = (action[seg_id + 5] + 1) / 2 + sc_scope_boost if seg_id + 5 < len(action) else 0.5
+            scope = min(1.0, scope)
             
             if intensity > 0.3:  # threshold for active hunting
                 segment = self.network.segments[seg_id]
                 for host in segment.hosts:
+                    self.total_scans += 1  # track for FPR
                     if host.compromised and not host.detected:
                         # Detection probability based on intensity, scope, and stealth
                         det_prob = intensity * scope * (1.0 - self.attacker.stealth * 0.5)
@@ -259,10 +275,13 @@ class SOCEnv(gym.Env):
         return result
     
     def _process_alert_triage(self, action: Optional[np.ndarray]) -> dict:
-        """Process Alert Triage discrete action."""
+        """Process Alert Triage discrete action. SC directive modulates aggressiveness."""
         result = {"triaged": 0, "escalated": 0, "suppressed_tp": 0}
         if action is None or not self.alert_queue:
             return result
+        
+        # SC directive[2:4] modulates triage aggressiveness
+        sc_aggression = (self.sc_directive[2] + 1) / 2  # 0 to 1
         
         # action is index: 0=escalate, 1=suppress, 2=correlate, 3=enrich
         action_idx = int(action) if np.isscalar(action) else int(action[0]) % self.action_dims["at"]
@@ -304,17 +323,21 @@ class SOCEnv(gym.Env):
         return result
     
     def _process_response(self, action: Optional[np.ndarray]) -> dict:
-        """Process Response Orchestrator actions."""
+        """Process Response Orchestrator actions. SC directive modulates urgency."""
         result = {"isolated": [], "remediated": [], "disruption_cost": 0.0}
         if action is None:
             return result
         
         action = np.clip(action, -1, 1) if isinstance(action, np.ndarray) else np.zeros(self.action_dims["ro"])
         
+        # SC directive[4:6] modulates response urgency
+        sc_urgency = (self.sc_directive[4] + 1) / 2 * 0.2  # 0 to 0.2 boost
+        
         # Actions: first 5 = isolate intensity per segment,
         # next 5 = remediate intensity, last 2 = global params
         for seg_id in range(self.num_segments):
-            isolate_intensity = (action[seg_id] + 1) / 2
+            isolate_intensity = (action[seg_id] + 1) / 2 + sc_urgency
+            isolate_intensity = min(1.0, isolate_intensity)
             remediate_intensity = (action[seg_id + 5] + 1) / 2 if seg_id + 5 < len(action) else 0
             
             segment = self.network.segments[seg_id]
@@ -406,10 +429,16 @@ class SOCEnv(gym.Env):
     
     def get_metrics(self) -> dict:
         """Return SOC performance metrics."""
+        # FPR = FP / (FP + TN), capped at 1.0
+        # TN approximated as total_scans - true_positives - false_positives
+        fp = self.false_positives
+        total_neg = max(1, self.total_scans - self.true_positives)
+        fpr = min(1.0, fp / total_neg) if total_neg > 0 else 0.0
+        
         return {
             "mttd": self.detection_time if self.detection_time else self.max_steps,
             "mttr": self.containment_time if self.containment_time else self.max_steps,
-            "fpr": self.false_positives / max(1, self.total_alerts_generated),
+            "fpr": fpr,
             "csr": float(self.attack_contained),
             "compromised": self.network.total_compromised,
             "exfiltrated": self.attacker.exfiltrated,

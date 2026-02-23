@@ -1,0 +1,79 @@
+Device: mps, Seed: 42, Workers: 4
+torch.compile: enabled for SC (aot_eager)
+Mixed precision: enabled (torch.float16)
+Replay buffer: prioritized (standard)
+Starting training: 10000 episodes, K=10, workers=4
+============================================================
+Process Process-4:
+Traceback (most recent call last):
+  File "/opt/homebrew/Cellar/python@3.12/3.12.12/Frameworks/Python.framework/Versions/3.12/lib/python3.12/multiprocessing/process.py", line 314, in _bootstrap
+    self.run()
+  File "/opt/homebrew/Cellar/python@3.12/3.12.12/Frameworks/Python.framework/Versions/3.12/lib/python3.12/multiprocessing/process.py", line 108, in run
+    self._target(*self._args, **self._kwargs)
+  File "/Users/pop7/Library/CloudStorage/OneDrive-MonsterConnectCo.,Ltd/Research/Submited_CF3 HMARL-SOC/code/train_fast.py", line 123, in env_worker
+    next_obs, reward, terminated, truncated, info = env.step(actions)
+                                                    ^^^^^^^^^^^^^^^^^
+  File "/Users/pop7/Library/CloudStorage/OneDrive-MonsterConnectCo.,Ltd/Research/Submited_CF3 HMARL-SOC/code/hmarl_soc/env/soc_env.py", line 108, in step
+    self.sc_directive = np.clip(np.asarray(sc_action, dtype=np.float32), -1, 1)
+                                ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+TypeError: float() argument must be a string or a real number, not 'dict'
+Process Process-3:
+Traceback (most recent call last):
+  File "/opt/homebrew/Cellar/python@3.12/3.12.12/Frameworks/Python.framework/Versions/3.12/lib/python3.12/multiprocessing/process.py", line 314, in _bootstrap
+    self.run()
+  File "/opt/homebrew/Cellar/python@3.12/3.12.12/Frameworks/Python.framework/Versions/3.12/lib/python3.12/multiprocessing/process.py", line 108, in run
+    self._target(*self._args, **self._kwargs)
+  File "/Users/pop7/Library/CloudStorage/OneDrive-MonsterConnectCo.,Ltd/Research/Submited_CF3 HMARL-SOC/code/train_fast.py", line 123, in env_worker
+    next_obs, reward, terminated, truncated, info = env.step(actions)
+                                                    ^^^^^^^^^^^^^^^^^
+  File "/Users/pop7/Library/CloudStorage/OneDrive-MonsterConnectCo.,Ltd/Research/Submited_CF3 HMARL-SOC/code/hmarl_soc/env/soc_env.py", line 108, in step
+    self.sc_directive = np.clip(np.asarray(sc_action, dtype=np.float32), -1, 1)
+                                ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+TypeError: float() argument must be a string or a real number, not 'dict'
+Process Process-1:
+Traceback (most recent call last):
+  File "/opt/homebrew/Cellar/python@3.12/3.12.12/Frameworks/Python.framework/Versions/3.12/lib/python3.12/multiprocessing/process.py", line 314, in _bootstrap
+    self.run()
+  File "/opt/homebrew/Cellar/python@3.12/3.12.12/Frameworks/Python.framework/Versions/3.12/lib/python3.12/multiprocessing/process.py", line 108, in run
+    self._target(*self._args, **self._kwargs)
+  File "/Users/pop7/Library/CloudStorage/OneDrive-MonsterConnectCo.,Ltd/Research/Submited_CF3 HMARL-SOC/code/train_fast.py", line 123, in env_worker
+    next_obs, reward, terminated, truncated, info = env.step(actions)
+                                                    ^^^^^^^^^^^^^^^^^
+  File "/Users/pop7/Library/CloudStorage/OneDrive-MonsterConnectCo.,Ltd/Research/Submited_CF3 HMARL-SOC/code/hmarl_soc/env/soc_env.py", line 108, in step
+    self.sc_directive = np.clip(np.asarray(sc_action, dtype=np.float32), -1, 1)
+                                ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+TypeError: float() argument must be a string or a real number, not 'dict'
+Process Process-2:
+Traceback (most recent call last):
+  File "/opt/homebrew/Cellar/python@3.12/3.12.12/Frameworks/Python.framework/Versions/3.12/lib/python3.12/multiprocessing/process.py", line 314, in _bootstrap
+    self.run()
+  File "/opt/homebrew/Cellar/python@3.12/3.12.12/Frameworks/Python.framework/Versions/3.12/lib/python3.12/multiprocessing/process.py", line 108, in run
+    self._target(*self._args, **self._kwargs)
+  File "/Users/pop7/Library/CloudStorage/OneDrive-MonsterConnectCo.,Ltd/Research/Submited_CF3 HMARL-SOC/code/train_fast.py", line 123, in env_worker
+    next_obs, reward, terminated, truncated, info = env.step(actions)
+                                                    ^^^^^^^^^^^^^^^^^
+  File "/Users/pop7/Library/CloudStorage/OneDrive-MonsterConnectCo.,Ltd/Research/Submited_CF3 HMARL-SOC/code/hmarl_soc/env/soc_env.py", line 108, in step
+    self.sc_directive = np.clip(np.asarray(sc_action, dtype=np.float32), -1, 1)
+                                ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+TypeError: float() argument must be a string or a real number, not 'dict'
+Traceback (most recent call last):
+  File "/Users/pop7/Library/CloudStorage/OneDrive-MonsterConnectCo.,Ltd/Research/Submited_CF3 HMARL-SOC/code/train_fast.py", line 491, in <module>
+    main()
+  File "/Users/pop7/Library/CloudStorage/OneDrive-MonsterConnectCo.,Ltd/Research/Submited_CF3 HMARL-SOC/code/train_fast.py", line 485, in main
+    train_fast(config, seed=args.seed, num_episodes=args.episodes,
+  File "/Users/pop7/Library/CloudStorage/OneDrive-MonsterConnectCo.,Ltd/Research/Submited_CF3 HMARL-SOC/code/train_fast.py", line 327, in train_fast
+    results.append(result_queue.get())
+                   ^^^^^^^^^^^^^^^^^^
+  File "/opt/homebrew/Cellar/python@3.12/3.12.12/Frameworks/Python.framework/Versions/3.12/lib/python3.12/multiprocessing/queues.py", line 103, in get
+    res = self._recv_bytes()
+          ^^^^^^^^^^^^^^^^^^
+  File "/opt/homebrew/Cellar/python@3.12/3.12.12/Frameworks/Python.framework/Versions/3.12/lib/python3.12/multiprocessing/connection.py", line 216, in recv_bytes
+    buf = self._recv_bytes(maxlength)
+          ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/opt/homebrew/Cellar/python@3.12/3.12.12/Frameworks/Python.framework/Versions/3.12/lib/python3.12/multiprocessing/connection.py", line 430, in _recv_bytes
+    buf = self._recv(4)
+          ^^^^^^^^^^^^^
+  File "/opt/homebrew/Cellar/python@3.12/3.12.12/Frameworks/Python.framework/Versions/3.12/lib/python3.12/multiprocessing/connection.py", line 395, in _recv
+    chunk = read(handle, remaining)
+            ^^^^^^^^^^^^^^^^^^^^^^^
+KeyboardInterrupt

@@ -141,15 +141,27 @@ class StrategicCoordinator:
         
         return total_loss / epochs
     
-    def get_directive(self, action: int) -> dict:
-        """Convert discrete action to strategic directive."""
-        # Action encoding: priority level + resource allocation
-        priority = action % 4  # 0=low, 1=medium, 2=high, 3=critical
-        focus_segment = action // 4  # which segment to focus on
+    def get_directive(self, action: int) -> np.ndarray:
+        """Convert discrete action to 8-dim strategic directive vector.
         
-        return {
-            "priority": priority,
-            "focus_segment": min(focus_segment, 4),
-            "hunting_scope": 0.3 + priority * 0.2,
-            "response_urgency": priority / 3.0,
-        }
+        Dims: [0:2] TH scan boost, [2:4] AT aggression, [4:6] RO urgency, [6:8] coordination
+        Values in [-1, 1] range for env.sc_directive processing.
+        """
+        directive = np.zeros(8, dtype=np.float32)
+        
+        priority = action % 4   # 0=low, 1=medium, 2=high, 3=critical
+        focus_seg = action // 4  # which segment to focus on (0 or 1)
+        
+        # Scale priority to [-1, 1]
+        p = -1.0 + 2.0 * (priority / 3.0)  # low=-1, critical=1
+        
+        directive[0] = p          # TH scan intensity boost
+        directive[1] = p * 0.8    # TH scope boost
+        directive[2] = p          # AT aggression
+        directive[3] = float(focus_seg)  # focus segment indicator
+        directive[4] = p          # RO urgency
+        directive[5] = p * 0.6    # RO remediation priority
+        directive[6] = p * 0.5    # coordination strength
+        directive[7] = float(focus_seg) * 0.5  # coordination target
+        
+        return directive
