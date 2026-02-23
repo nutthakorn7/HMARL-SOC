@@ -114,16 +114,16 @@ def train_qmix(config, seed=42, num_episodes=10000, save_dir="checkpoints"):
         params += list(q.parameters())
     optimizer = optim.Adam(params, lr=3e-4)
     
-    buffer = ReplayBuffer(100000)
-    batch_size = 256
+    buffer = ReplayBuffer(50000)  # smaller buffer → fits M4 L2 cache
+    batch_size = 512  # larger batch → better CPU throughput on M4
     gamma = 0.99
     eps_start, eps_end, eps_decay = 1.0, 0.05, 50000
     target_update = 1000
     
     os.makedirs(save_dir, exist_ok=True)
     log_file = os.path.join(save_dir, f"train_qmix_seed{seed}.csv")
-    with open(log_file, "w") as f:
-        f.write("episode,reward,mttd,mttr,fpr,csr,compromised\n")
+    log_handle = open(log_file, "w", buffering=8192)  # buffered writes
+    log_handle.write("episode,reward,mttd,mttr,fpr,csr,compromised\n")
     
     best_reward = -float("inf")
     episode_rewards = []
@@ -192,8 +192,8 @@ def train_qmix(config, seed=42, num_episodes=10000, save_dir="checkpoints"):
             }
             buffer.push(transition)
             
-            # Update
-            if len(buffer) >= batch_size:
+            # Update every 4 steps (not every step) for speed
+            if len(buffer) >= batch_size and step_count % 4 == 0:
                 batch = buffer.sample(batch_size, device)
                 
                 # Get per-agent Q-values
@@ -245,20 +245,21 @@ def train_qmix(config, seed=42, num_episodes=10000, save_dir="checkpoints"):
         metrics = env.get_metrics()
         episode_rewards.append(episode_reward)
         
-        with open(log_file, "a") as f:
-            f.write(f"{episode},{episode_reward:.2f},{metrics['mttd']},"
-                    f"{metrics['mttr']},{metrics['fpr']:.4f},"
-                    f"{int(metrics['csr'])},{metrics['compromised']}\n")
+        log_handle.write(f"{episode},{episode_reward:.2f},{metrics['mttd']},"
+                         f"{metrics['mttr']},{metrics['fpr']:.4f},"
+                         f"{int(metrics['csr'])},{metrics['compromised']}\n")
         
-        if episode % 100 == 0:
-            avg_reward = np.mean(episode_rewards[-100:])
+        if episode % 500 == 0:
+            avg_reward = np.mean(episode_rewards[-500:])
             print(f"Episode {episode:6d} | Avg Reward: {avg_reward:8.2f} | "
                   f"MTTD: {metrics['mttd']:3d} | MTTR: {metrics['mttr']:3d} | "
                   f"FPR: {metrics['fpr']:.3f} | CSR: {int(metrics['csr'])}")
+            log_handle.flush()
         
         if episode_reward > best_reward:
             best_reward = episode_reward
     
+    log_handle.close()
     print(f"\nQMIX training complete. Best reward: {best_reward:.2f}")
     print(f"Logs saved to: {log_file}")
 

@@ -159,7 +159,7 @@ def train_rule_soar(config, seed, num_episodes, save_dir):
                 break
 
         write_csv_row(f, ep, episode_reward, env.get_metrics())
-        if ep % 100 == 0:
+        if ep % 500 == 0:
             f.flush()
             print(f"Episode {ep:>6} | Reward: {episode_reward:.2f} | MTTD: {info.get('mttd', 200)}")
 
@@ -281,7 +281,7 @@ def train_single_drl(config, seed, num_episodes, save_dir):
                 optimizer.step()
 
         write_csv_row(f, ep, episode_reward, env.get_metrics())
-        if ep % 100 == 0:
+        if ep % 500 == 0:
             f.flush()
             print(f"Episode {ep:>6} | Reward: {episode_reward:.2f} | MTTD: {info.get('mttd', 200)}")
 
@@ -304,30 +304,30 @@ def train_iql(config, seed, num_episodes, save_dir):
     sc_target = DiscreteActor(64, 8).to(device)
     sc_target.load_state_dict(sc_q.state_dict())
     sc_opt = optim.Adam(sc_q.parameters(), lr=3e-4)
-    sc_buf = SimpleBuffer(100000)
+    sc_buf = SimpleBuffer(50000)  # smaller buffer → fits M4 L2 cache
 
     at_q = DiscreteActor(64, 4).to(device)
     at_target = DiscreteActor(64, 4).to(device)
     at_target.load_state_dict(at_q.state_dict())
     at_opt = optim.Adam(at_q.parameters(), lr=3e-4)
-    at_buf = SimpleBuffer(100000)
+    at_buf = SimpleBuffer(50000)
 
     th_actor = GaussianActor(128, 16).to(device)
     th_critic = Critic(128).to(device)
     th_opt = optim.Adam(list(th_actor.parameters()) + list(th_critic.parameters()), lr=3e-4)
-    th_buf = SimpleBuffer(100000)
+    th_buf = SimpleBuffer(50000)
 
     ro_actor = GaussianActor(96, 12).to(device)
     ro_critic = Critic(96).to(device)
     ro_opt = optim.Adam(list(ro_actor.parameters()) + list(ro_critic.parameters()), lr=3e-4)
-    ro_buf = SimpleBuffer(100000)
+    ro_buf = SimpleBuffer(50000)
 
     log_file = os.path.join(save_dir, f"train_iql_seed{seed}.csv")
     f = open(log_file, "w")
     f.write("episode,reward,mttd,mttr,fpr,csr,compromised\n")
 
     eps_start, eps_end, eps_decay = 1.0, 0.05, 50000
-    gamma, batch_size = 0.99, 256
+    gamma, batch_size = 0.99, 512  # larger batch → better M4 CPU throughput
     total_steps = 0
 
     for ep in range(1, num_episodes + 1):
@@ -431,7 +431,7 @@ def train_iql(config, seed, num_episodes, save_dir):
                 at_target.load_state_dict(at_q.state_dict())
 
         write_csv_row(f, ep, episode_reward, env.get_metrics())
-        if ep % 100 == 0:
+        if ep % 500 == 0:
             f.flush()
             print(f"Episode {ep:>6} | Reward: {episode_reward:.2f} | MTTD: {info.get('mttd', 200)}")
 
@@ -569,7 +569,7 @@ def train_mappo(config, seed, num_episodes, save_dir):
                 optimizer.step()
 
         write_csv_row(f, ep, episode_reward, env.get_metrics())
-        if ep % 100 == 0:
+        if ep % 500 == 0:
             f.flush()
             print(f"Episode {ep:>6} | Reward: {episode_reward:.2f} | MTTD: {info.get('mttd', 200)}")
 
