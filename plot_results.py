@@ -1,9 +1,9 @@
 #!/usr/bin/env python3
 """Generate training result plots for HMARL-SOC."""
 import pandas as pd
-import matplotlib.pyplot as plt
 import matplotlib
 matplotlib.use('Agg')
+import matplotlib.pyplot as plt
 import numpy as np
 import os
 

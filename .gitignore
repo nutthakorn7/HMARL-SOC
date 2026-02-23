@@ -1,2 +1,5 @@
 *.pt
 cyborg_cage4/
+__pycache__/
+*.pyc
+training_*.log
