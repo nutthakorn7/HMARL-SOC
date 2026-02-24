@@ -18,7 +18,7 @@ class ResponseOrchestrator:
     """
     
     def __init__(self, obs_dim: int = 96, action_dim: int = 12,
-                 total_obs_dim: int = 352, total_action_dim: int = 30,
+                 total_obs_dim: int = 352, total_action_dim: int = 37,  # SC:8 + TH:16 + AT:1 + RO:12
                  hidden_dim: int = 256, lr_actor: float = 3e-4,
                  lr_critic: float = 3e-4, gamma: float = 0.99,
                  tau: float = 0.005, noise_std: float = 0.1,

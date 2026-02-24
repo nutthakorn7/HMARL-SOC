@@ -1,0 +1,26 @@
+Device: cpu, Seed: 456
+Starting QMIX training: 10000 episodes
+============================================================
+Episode    500 | Avg Reward:  -501.40 | MTTD:  10 | MTTR: 200 | FPR: 0.023 | CSR: 0
+Episode   1000 | Avg Reward:  -473.87 | MTTD:   5 | MTTR: 200 | FPR: 0.001 | CSR: 0
+Episode   1500 | Avg Reward:  -370.01 | MTTD:  11 | MTTR: 200 | FPR: 0.012 | CSR: 0
+Episode   2000 | Avg Reward:  -340.10 | MTTD:   6 | MTTR: 200 | FPR: 0.021 | CSR: 0
+Episode   2500 | Avg Reward:  -415.70 | MTTD:  13 | MTTR: 125 | FPR: 0.024 | CSR: 1
+Episode   3000 | Avg Reward:  -499.30 | MTTD:   7 | MTTR:  31 | FPR: 0.016 | CSR: 1
+Episode   3500 | Avg Reward:  -649.66 | MTTD:   8 | MTTR: 200 | FPR: 0.029 | CSR: 0
+Episode   4000 | Avg Reward:  -698.09 | MTTD:  12 | MTTR: 200 | FPR: 0.030 | CSR: 0
+Episode   4500 | Avg Reward:  -726.25 | MTTD:   9 | MTTR: 200 | FPR: 0.033 | CSR: 0
+Episode   5000 | Avg Reward:  -665.59 | MTTD:  16 | MTTR: 200 | FPR: 0.026 | CSR: 0
+Episode   5500 | Avg Reward:  -704.00 | MTTD:  15 | MTTR: 200 | FPR: 0.020 | CSR: 0
+Episode   6000 | Avg Reward:  -687.35 | MTTD:   6 | MTTR: 200 | FPR: 0.024 | CSR: 0
+Episode   6500 | Avg Reward:  -643.04 | MTTD:   7 | MTTR: 200 | FPR: 0.025 | CSR: 0
+Episode   7000 | Avg Reward:  -628.89 | MTTD:   7 | MTTR: 200 | FPR: 0.031 | CSR: 0
+Episode   7500 | Avg Reward:  -656.47 | MTTD:   5 | MTTR: 200 | FPR: 0.024 | CSR: 0
+Episode   8000 | Avg Reward:  -680.85 | MTTD:  16 | MTTR: 200 | FPR: 0.021 | CSR: 0
+Episode   8500 | Avg Reward:  -660.39 | MTTD:   4 | MTTR: 200 | FPR: 0.027 | CSR: 0
+Episode   9000 | Avg Reward:  -678.93 | MTTD:   9 | MTTR: 200 | FPR: 0.026 | CSR: 0
+Episode   9500 | Avg Reward:  -730.53 | MTTD:  24 | MTTR: 200 | FPR: 0.026 | CSR: 0
+Episode  10000 | Avg Reward:  -757.06 | MTTD:  15 | MTTR: 200 | FPR: 0.026 | CSR: 0
+
+QMIX training complete. Best reward: 9.37
+Logs saved to: checkpoints/train_qmix_seed456.csv

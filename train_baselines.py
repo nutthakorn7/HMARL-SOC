@@ -326,7 +326,7 @@ def train_iql(config, seed, num_episodes, save_dir):
     f = open(log_file, "w")
     f.write("episode,reward,mttd,mttr,fpr,csr,compromised\n")
 
-    eps_start, eps_end, eps_decay = 1.0, 0.05, 50000
+    eps_start, eps_end, eps_decay = 1.0, 0.05, 80000  # slower decay for stable convergence
     gamma, batch_size = 0.99, 512  # larger batch → better M4 CPU throughput
     total_steps = 0
 

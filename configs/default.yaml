@@ -19,7 +19,7 @@ agents:
     lr: 3.0e-4
     clip_eps: 0.2
     entropy_coeff: 0.01
-    temporal_abstraction_K: 10
+    temporal_abstraction_K: 5  # SC issues directives every 5 steps (faster reaction)
 
   threat_hunter:
     algorithm: SAC

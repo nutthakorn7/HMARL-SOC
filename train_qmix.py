@@ -153,22 +153,23 @@ def train_qmix(config, seed=42, num_episodes=10000, save_dir="checkpoints"):
                 actions_idx.append(a)
             
             # Convert discrete indices to environment actions
-            # TH: map 16 discrete bins to continuous intensity values
+            # TH: 16 bins → target specific segments with varying intensity
             th_action = np.zeros(16, dtype=np.float32)
             th_bin = actions_idx[0]
-            # Set per-segment intensities based on bin
-            for s in range(5):
-                th_action[s] = -1.0 + 2.0 * (th_bin / 15.0)  # uniform mapping
-            th_action[5:10] = 0.0  # scope = 0.5 after normalize
+            target_seg = th_bin % 5          # which segment to focus (0-4)
+            intensity = 0.3 + 0.7 * (th_bin // 5) / 3.0  # intensity 0.3-1.0
+            th_action[target_seg] = intensity     # scan target segment
+            th_action[5 + target_seg] = 0.5       # scope for target segment
             
             at_action = np.array([actions_idx[1]])
             
-            # RO: map 12 discrete bins to continuous isolate/remediate
+            # RO: 12 bins → target specific segments for isolate/remediate
             ro_action = np.zeros(12, dtype=np.float32)
             ro_bin = actions_idx[2]
-            for s in range(5):
-                ro_action[s] = -1.0 + 2.0 * (ro_bin / 11.0)  # isolate
-                ro_action[s + 5] = -1.0 + 2.0 * (ro_bin / 11.0)  # remediate
+            target_seg_ro = ro_bin % 5
+            ro_intensity = 0.3 + 0.7 * (ro_bin // 5) / 2.0  # intensity 0.3-1.0
+            ro_action[target_seg_ro] = ro_intensity           # isolate target
+            ro_action[5 + target_seg_ro] = ro_intensity       # remediate target
             
             # No coordinator — use default directive
             env_actions = {

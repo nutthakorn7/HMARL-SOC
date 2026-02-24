@@ -2,78 +2,108 @@ Device: mps, Seed: 42, Workers: 4
 torch.compile: enabled for SC (aot_eager)
 Mixed precision: enabled (torch.float16)
 Replay buffer: prioritized (standard)
-Starting training: 10000 episodes, K=10, workers=4
+Starting training: 10000 episodes, K=5, workers=4
 ============================================================
-Process Process-4:
-Traceback (most recent call last):
-  File "/opt/homebrew/Cellar/python@3.12/3.12.12/Frameworks/Python.framework/Versions/3.12/lib/python3.12/multiprocessing/process.py", line 314, in _bootstrap
-    self.run()
-  File "/opt/homebrew/Cellar/python@3.12/3.12.12/Frameworks/Python.framework/Versions/3.12/lib/python3.12/multiprocessing/process.py", line 108, in run
-    self._target(*self._args, **self._kwargs)
-  File "/Users/pop7/Library/CloudStorage/OneDrive-MonsterConnectCo.,Ltd/Research/Submited_CF3 HMARL-SOC/code/train_fast.py", line 123, in env_worker
-    next_obs, reward, terminated, truncated, info = env.step(actions)
-                                                    ^^^^^^^^^^^^^^^^^
-  File "/Users/pop7/Library/CloudStorage/OneDrive-MonsterConnectCo.,Ltd/Research/Submited_CF3 HMARL-SOC/code/hmarl_soc/env/soc_env.py", line 108, in step
-    self.sc_directive = np.clip(np.asarray(sc_action, dtype=np.float32), -1, 1)
-                                ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-TypeError: float() argument must be a string or a real number, not 'dict'
-Process Process-3:
-Traceback (most recent call last):
-  File "/opt/homebrew/Cellar/python@3.12/3.12.12/Frameworks/Python.framework/Versions/3.12/lib/python3.12/multiprocessing/process.py", line 314, in _bootstrap
-    self.run()
-  File "/opt/homebrew/Cellar/python@3.12/3.12.12/Frameworks/Python.framework/Versions/3.12/lib/python3.12/multiprocessing/process.py", line 108, in run
-    self._target(*self._args, **self._kwargs)
-  File "/Users/pop7/Library/CloudStorage/OneDrive-MonsterConnectCo.,Ltd/Research/Submited_CF3 HMARL-SOC/code/train_fast.py", line 123, in env_worker
-    next_obs, reward, terminated, truncated, info = env.step(actions)
-                                                    ^^^^^^^^^^^^^^^^^
-  File "/Users/pop7/Library/CloudStorage/OneDrive-MonsterConnectCo.,Ltd/Research/Submited_CF3 HMARL-SOC/code/hmarl_soc/env/soc_env.py", line 108, in step
-    self.sc_directive = np.clip(np.asarray(sc_action, dtype=np.float32), -1, 1)
-                                ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-TypeError: float() argument must be a string or a real number, not 'dict'
-Process Process-1:
-Traceback (most recent call last):
-  File "/opt/homebrew/Cellar/python@3.12/3.12.12/Frameworks/Python.framework/Versions/3.12/lib/python3.12/multiprocessing/process.py", line 314, in _bootstrap
-    self.run()
-  File "/opt/homebrew/Cellar/python@3.12/3.12.12/Frameworks/Python.framework/Versions/3.12/lib/python3.12/multiprocessing/process.py", line 108, in run
-    self._target(*self._args, **self._kwargs)
-  File "/Users/pop7/Library/CloudStorage/OneDrive-MonsterConnectCo.,Ltd/Research/Submited_CF3 HMARL-SOC/code/train_fast.py", line 123, in env_worker
-    next_obs, reward, terminated, truncated, info = env.step(actions)
-                                                    ^^^^^^^^^^^^^^^^^
-  File "/Users/pop7/Library/CloudStorage/OneDrive-MonsterConnectCo.,Ltd/Research/Submited_CF3 HMARL-SOC/code/hmarl_soc/env/soc_env.py", line 108, in step
-    self.sc_directive = np.clip(np.asarray(sc_action, dtype=np.float32), -1, 1)
-                                ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-TypeError: float() argument must be a string or a real number, not 'dict'
-Process Process-2:
-Traceback (most recent call last):
-  File "/opt/homebrew/Cellar/python@3.12/3.12.12/Frameworks/Python.framework/Versions/3.12/lib/python3.12/multiprocessing/process.py", line 314, in _bootstrap
-    self.run()
-  File "/opt/homebrew/Cellar/python@3.12/3.12.12/Frameworks/Python.framework/Versions/3.12/lib/python3.12/multiprocessing/process.py", line 108, in run
-    self._target(*self._args, **self._kwargs)
-  File "/Users/pop7/Library/CloudStorage/OneDrive-MonsterConnectCo.,Ltd/Research/Submited_CF3 HMARL-SOC/code/train_fast.py", line 123, in env_worker
-    next_obs, reward, terminated, truncated, info = env.step(actions)
-                                                    ^^^^^^^^^^^^^^^^^
-  File "/Users/pop7/Library/CloudStorage/OneDrive-MonsterConnectCo.,Ltd/Research/Submited_CF3 HMARL-SOC/code/hmarl_soc/env/soc_env.py", line 108, in step
-    self.sc_directive = np.clip(np.asarray(sc_action, dtype=np.float32), -1, 1)
-                                ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-TypeError: float() argument must be a string or a real number, not 'dict'
-Traceback (most recent call last):
-  File "/Users/pop7/Library/CloudStorage/OneDrive-MonsterConnectCo.,Ltd/Research/Submited_CF3 HMARL-SOC/code/train_fast.py", line 491, in <module>
-    main()
-  File "/Users/pop7/Library/CloudStorage/OneDrive-MonsterConnectCo.,Ltd/Research/Submited_CF3 HMARL-SOC/code/train_fast.py", line 485, in main
-    train_fast(config, seed=args.seed, num_episodes=args.episodes,
-  File "/Users/pop7/Library/CloudStorage/OneDrive-MonsterConnectCo.,Ltd/Research/Submited_CF3 HMARL-SOC/code/train_fast.py", line 327, in train_fast
-    results.append(result_queue.get())
-                   ^^^^^^^^^^^^^^^^^^
-  File "/opt/homebrew/Cellar/python@3.12/3.12.12/Frameworks/Python.framework/Versions/3.12/lib/python3.12/multiprocessing/queues.py", line 103, in get
-    res = self._recv_bytes()
-          ^^^^^^^^^^^^^^^^^^
-  File "/opt/homebrew/Cellar/python@3.12/3.12.12/Frameworks/Python.framework/Versions/3.12/lib/python3.12/multiprocessing/connection.py", line 216, in recv_bytes
-    buf = self._recv_bytes(maxlength)
-          ^^^^^^^^^^^^^^^^^^^^^^^^^^^
-  File "/opt/homebrew/Cellar/python@3.12/3.12.12/Frameworks/Python.framework/Versions/3.12/lib/python3.12/multiprocessing/connection.py", line 430, in _recv_bytes
-    buf = self._recv(4)
-          ^^^^^^^^^^^^^
-  File "/opt/homebrew/Cellar/python@3.12/3.12.12/Frameworks/Python.framework/Versions/3.12/lib/python3.12/multiprocessing/connection.py", line 395, in _recv
-    chunk = read(handle, remaining)
-            ^^^^^^^^^^^^^^^^^^^^^^^
-KeyboardInterrupt
+Episode    100 | Avg Reward:  -237.25 | MTTD:   7 | MTTR:  35 | FPR: 0.014 | CSR: 1 | 2.0 ep/s | ETA: 82m
+Episode    200 | Avg Reward:  -148.87 | MTTD:  16 | MTTR:  39 | FPR: 0.016 | CSR: 1 | 2.7 ep/s | ETA: 62m
+Episode    300 | Avg Reward:  -169.37 | MTTD:   4 | MTTR: 200 | FPR: 0.016 | CSR: 0 | 2.7 ep/s | ETA: 60m
+Episode    400 | Avg Reward:  -156.62 | MTTD:   8 | MTTR:  70 | FPR: 0.015 | CSR: 1 | 2.8 ep/s | ETA: 57m
+Episode    500 | Avg Reward:  -162.51 | MTTD:  10 | MTTR: 200 | FPR: 0.014 | CSR: 0 | 2.8 ep/s | ETA: 56m
+Episode    600 | Avg Reward:  -169.49 | MTTD:  13 | MTTR:  50 | FPR: 0.022 | CSR: 1 | 2.8 ep/s | ETA: 56m
+Episode    700 | Avg Reward:  -152.40 | MTTD:  18 | MTTR: 200 | FPR: 0.019 | CSR: 0 | 2.9 ep/s | ETA: 53m
+Episode    800 | Avg Reward:  -145.37 | MTTD:  13 | MTTR: 106 | FPR: 0.012 | CSR: 1 | 2.8 ep/s | ETA: 54m
+Episode    900 | Avg Reward:  -128.01 | MTTD:  16 | MTTR: 200 | FPR: 0.009 | CSR: 0 | 2.9 ep/s | ETA: 52m
+Episode   1000 | Avg Reward:  -119.98 | MTTD:  14 | MTTR: 200 | FPR: 0.013 | CSR: 0 | 3.0 ep/s | ETA: 51m
+Episode   1100 | Avg Reward:  -120.44 | MTTD:  14 | MTTR:  44 | FPR: 0.016 | CSR: 1 | 3.0 ep/s | ETA: 50m
+Episode   1200 | Avg Reward:  -124.57 | MTTD:   9 | MTTR: 200 | FPR: 0.013 | CSR: 0 | 2.9 ep/s | ETA: 50m
+Episode   1300 | Avg Reward:  -127.87 | MTTD:  12 | MTTR:  91 | FPR: 0.012 | CSR: 1 | 3.0 ep/s | ETA: 49m
+Episode   1400 | Avg Reward:  -105.76 | MTTD:  17 | MTTR:  48 | FPR: 0.009 | CSR: 1 | 3.0 ep/s | ETA: 49m
+Episode   1500 | Avg Reward:   -93.76 | MTTD:  18 | MTTR:  30 | FPR: 0.013 | CSR: 1 | 3.0 ep/s | ETA: 48m
+Episode   1600 | Avg Reward:   -83.73 | MTTD:  14 | MTTR:  51 | FPR: 0.006 | CSR: 1 | 2.9 ep/s | ETA: 48m
+Episode   1700 | Avg Reward:   -90.00 | MTTD:  11 | MTTR:  18 | FPR: 0.007 | CSR: 1 | 3.0 ep/s | ETA: 47m
+Episode   1800 | Avg Reward:   -79.55 | MTTD:   7 | MTTR: 200 | FPR: 0.006 | CSR: 0 | 3.0 ep/s | ETA: 46m
+Episode   1900 | Avg Reward:   -73.17 | MTTD:  32 | MTTR: 200 | FPR: 0.009 | CSR: 0 | 3.0 ep/s | ETA: 46m
+Episode   2000 | Avg Reward:   -61.54 | MTTD:  11 | MTTR:  65 | FPR: 0.007 | CSR: 1 | 2.9 ep/s | ETA: 46m
+Episode   2100 | Avg Reward:   -56.42 | MTTD:  14 | MTTR: 200 | FPR: 0.006 | CSR: 0 | 2.9 ep/s | ETA: 46m
+Episode   2200 | Avg Reward:   -54.34 | MTTD:  12 | MTTR:  42 | FPR: 0.005 | CSR: 1 | 2.9 ep/s | ETA: 45m
+Episode   2300 | Avg Reward:   -58.19 | MTTD:   5 | MTTR: 200 | FPR: 0.004 | CSR: 0 | 2.9 ep/s | ETA: 44m
+Episode   2400 | Avg Reward:   -44.93 | MTTD:   6 | MTTR:  43 | FPR: 0.002 | CSR: 1 | 3.0 ep/s | ETA: 43m
+Episode   2500 | Avg Reward:   -45.29 | MTTD:   7 | MTTR:  19 | FPR: 0.001 | CSR: 1 | 3.0 ep/s | ETA: 42m
+Episode   2600 | Avg Reward:   -36.45 | MTTD:   5 | MTTR:  38 | FPR: 0.004 | CSR: 1 | 3.0 ep/s | ETA: 41m
+Episode   2700 | Avg Reward:   -40.32 | MTTD: 200 | MTTR: 200 | FPR: 0.003 | CSR: 0 | 3.0 ep/s | ETA: 41m
+Episode   2800 | Avg Reward:   -29.09 | MTTD:  17 | MTTR: 200 | FPR: 0.002 | CSR: 0 | 3.0 ep/s | ETA: 40m
+Episode   2900 | Avg Reward:   -22.58 | MTTD:   4 | MTTR:   4 | FPR: 0.000 | CSR: 1 | 3.0 ep/s | ETA: 39m
+Episode   3000 | Avg Reward:   -13.78 | MTTD:  10 | MTTR: 200 | FPR: 0.002 | CSR: 0 | 3.0 ep/s | ETA: 39m
+Episode   3100 | Avg Reward:   -12.85 | MTTD: 120 | MTTR: 120 | FPR: 0.002 | CSR: 1 | 3.0 ep/s | ETA: 38m
+Episode   3200 | Avg Reward:   -10.69 | MTTD:   8 | MTTR: 107 | FPR: 0.001 | CSR: 1 | 3.0 ep/s | ETA: 38m
+Episode   3300 | Avg Reward:    -7.68 | MTTD:   5 | MTTR: 200 | FPR: 0.001 | CSR: 0 | 3.0 ep/s | ETA: 37m
+Episode   3400 | Avg Reward:    -6.99 | MTTD:  23 | MTTR: 200 | FPR: 0.002 | CSR: 0 | 3.0 ep/s | ETA: 37m
+Episode   3500 | Avg Reward:    -4.25 | MTTD:   7 | MTTR: 165 | FPR: 0.001 | CSR: 1 | 2.9 ep/s | ETA: 37m
+Episode   3600 | Avg Reward:    -2.19 | MTTD:  51 | MTTR: 200 | FPR: 0.001 | CSR: 0 | 2.9 ep/s | ETA: 36m
+Episode   3700 | Avg Reward:    -3.12 | MTTD:  24 | MTTR: 200 | FPR: 0.001 | CSR: 0 | 2.9 ep/s | ETA: 36m
+Episode   3800 | Avg Reward:    -1.76 | MTTD:  96 | MTTR: 200 | FPR: 0.001 | CSR: 0 | 2.9 ep/s | ETA: 35m
+Episode   3900 | Avg Reward:    -0.43 | MTTD:  58 | MTTR: 200 | FPR: 0.001 | CSR: 0 | 2.9 ep/s | ETA: 35m
+Episode   4000 | Avg Reward:    -1.38 | MTTD:  36 | MTTR: 146 | FPR: 0.003 | CSR: 1 | 2.7 ep/s | ETA: 38m
+Episode   4100 | Avg Reward:    -0.61 | MTTD:  57 | MTTR: 200 | FPR: 0.003 | CSR: 0 | 2.7 ep/s | ETA: 37m
+Episode   4200 | Avg Reward:    -0.74 | MTTD:  12 | MTTR: 108 | FPR: 0.002 | CSR: 1 | 2.7 ep/s | ETA: 36m
+Episode   4300 | Avg Reward:    -0.77 | MTTD: 105 | MTTR: 108 | FPR: 0.001 | CSR: 1 | 2.7 ep/s | ETA: 35m
+Episode   4400 | Avg Reward:    -1.73 | MTTD:  23 | MTTR:  59 | FPR: 0.001 | CSR: 1 | 2.7 ep/s | ETA: 34m
+Episode   4500 | Avg Reward:    -1.52 | MTTD:  57 | MTTR: 166 | FPR: 0.001 | CSR: 1 | 2.8 ep/s | ETA: 33m
+Episode   4600 | Avg Reward:     0.25 | MTTD:  50 | MTTR: 200 | FPR: 0.001 | CSR: 0 | 2.8 ep/s | ETA: 32m
+Episode   4700 | Avg Reward:     1.94 | MTTD:  23 | MTTR:  77 | FPR: 0.002 | CSR: 1 | 2.8 ep/s | ETA: 31m
+Episode   4800 | Avg Reward:     2.16 | MTTD:  12 | MTTR: 200 | FPR: 0.001 | CSR: 0 | 2.9 ep/s | ETA: 30m
+Episode   4900 | Avg Reward:     1.83 | MTTD:  49 | MTTR: 116 | FPR: 0.000 | CSR: 1 | 2.9 ep/s | ETA: 29m
+Episode   5000 | Avg Reward:     1.65 | MTTD:  46 | MTTR: 157 | FPR: 0.001 | CSR: 1 | 2.9 ep/s | ETA: 29m
+Episode   5100 | Avg Reward:     2.61 | MTTD:  16 | MTTR: 200 | FPR: 0.002 | CSR: 0 | 2.9 ep/s | ETA: 28m
+Episode   5200 | Avg Reward:     2.60 | MTTD: 200 | MTTR: 200 | FPR: 0.004 | CSR: 0 | 3.0 ep/s | ETA: 27m
+Episode   5300 | Avg Reward:     3.88 | MTTD:  13 | MTTR:  97 | FPR: 0.000 | CSR: 1 | 3.0 ep/s | ETA: 26m
+Episode   5400 | Avg Reward:     2.72 | MTTD:  30 | MTTR: 200 | FPR: 0.001 | CSR: 0 | 3.0 ep/s | ETA: 25m
+Episode   5500 | Avg Reward:     4.02 | MTTD:  28 | MTTR:  92 | FPR: 0.001 | CSR: 1 | 3.0 ep/s | ETA: 25m
+Episode   5600 | Avg Reward:     5.30 | MTTD:  14 | MTTR:  55 | FPR: 0.001 | CSR: 1 | 3.1 ep/s | ETA: 24m
+Episode   5700 | Avg Reward:     4.22 | MTTD:  13 | MTTR: 200 | FPR: 0.001 | CSR: 0 | 3.1 ep/s | ETA: 23m
+Episode   5800 | Avg Reward:     5.31 | MTTD:  15 | MTTR:  67 | FPR: 0.001 | CSR: 1 | 3.1 ep/s | ETA: 23m
+Episode   5900 | Avg Reward:     3.75 | MTTD:  10 | MTTR: 200 | FPR: 0.001 | CSR: 0 | 3.1 ep/s | ETA: 22m
+Episode   6000 | Avg Reward:     3.65 | MTTD:  94 | MTTR: 200 | FPR: 0.002 | CSR: 0 | 3.1 ep/s | ETA: 21m
+Episode   6100 | Avg Reward:     1.54 | MTTD:  11 | MTTR: 200 | FPR: 0.004 | CSR: 0 | 3.1 ep/s | ETA: 21m
+Episode   6200 | Avg Reward:     0.35 | MTTD: 200 | MTTR: 200 | FPR: 0.009 | CSR: 0 | 3.1 ep/s | ETA: 20m
+Episode   6300 | Avg Reward:     2.67 | MTTD:  19 | MTTR: 200 | FPR: 0.001 | CSR: 0 | 3.1 ep/s | ETA: 20m
+Episode   6400 | Avg Reward:     0.86 | MTTD:  67 | MTTR: 200 | FPR: 0.010 | CSR: 0 | 3.1 ep/s | ETA: 19m
+Episode   6500 | Avg Reward:     0.87 | MTTD: 200 | MTTR: 200 | FPR: 0.059 | CSR: 0 | 3.1 ep/s | ETA: 19m
+Episode   6600 | Avg Reward:     0.93 | MTTD:  93 | MTTR: 200 | FPR: 0.012 | CSR: 0 | 3.1 ep/s | ETA: 18m
+Episode   6700 | Avg Reward:     0.37 | MTTD: 200 | MTTR: 200 | FPR: 0.004 | CSR: 0 | 3.1 ep/s | ETA: 18m
+Episode   6800 | Avg Reward:     1.69 | MTTD:  34 | MTTR: 200 | FPR: 0.001 | CSR: 0 | 3.1 ep/s | ETA: 17m
+Episode   6900 | Avg Reward:     5.84 | MTTD:  27 | MTTR: 120 | FPR: 0.001 | CSR: 1 | 3.1 ep/s | ETA: 17m
+Episode   7000 | Avg Reward:     5.09 | MTTD:  62 | MTTR: 200 | FPR: 0.001 | CSR: 0 | 3.1 ep/s | ETA: 16m
+Episode   7100 | Avg Reward:     4.05 | MTTD:  63 | MTTR: 178 | FPR: 0.001 | CSR: 1 | 3.2 ep/s | ETA: 15m
+Episode   7200 | Avg Reward:     2.61 | MTTD:  42 | MTTR: 200 | FPR: 0.004 | CSR: 0 | 3.2 ep/s | ETA: 15m
+Episode   7300 | Avg Reward:     6.12 | MTTD:  24 | MTTR: 108 | FPR: 0.003 | CSR: 1 | 3.2 ep/s | ETA: 14m
+Episode   7400 | Avg Reward:     4.60 | MTTD:  21 | MTTR: 200 | FPR: 0.001 | CSR: 0 | 3.2 ep/s | ETA: 14m
+Episode   7500 | Avg Reward:     3.91 | MTTD:   8 | MTTR:  36 | FPR: 0.001 | CSR: 1 | 3.2 ep/s | ETA: 13m
+Episode   7600 | Avg Reward:     4.98 | MTTD:  27 | MTTR:  88 | FPR: 0.000 | CSR: 1 | 3.2 ep/s | ETA: 12m
+Episode   7700 | Avg Reward:     6.75 | MTTD:  26 | MTTR: 200 | FPR: 0.002 | CSR: 0 | 3.3 ep/s | ETA: 12m
+Episode   7800 | Avg Reward:     6.36 | MTTD:  10 | MTTR: 200 | FPR: 0.001 | CSR: 0 | 3.3 ep/s | ETA: 11m
+Episode   7900 | Avg Reward:     5.54 | MTTD:   5 | MTTR: 200 | FPR: 0.002 | CSR: 0 | 3.3 ep/s | ETA: 11m
+Episode   8000 | Avg Reward:     5.94 | MTTD:  21 | MTTR: 200 | FPR: 0.001 | CSR: 0 | 3.3 ep/s | ETA: 10m
+Episode   8100 | Avg Reward:     5.68 | MTTD:   6 | MTTR: 200 | FPR: 0.000 | CSR: 0 | 3.3 ep/s | ETA: 9m
+Episode   8200 | Avg Reward:     5.48 | MTTD:  26 | MTTR:  32 | FPR: 0.002 | CSR: 1 | 3.3 ep/s | ETA: 9m
+Episode   8300 | Avg Reward:     2.89 | MTTD:  46 | MTTR: 200 | FPR: 0.002 | CSR: 0 | 3.4 ep/s | ETA: 8m
+Episode   8400 | Avg Reward:     5.35 | MTTD:   4 | MTTR:  25 | FPR: 0.001 | CSR: 1 | 3.4 ep/s | ETA: 8m
+Episode   8500 | Avg Reward:     5.53 | MTTD:  31 | MTTR: 200 | FPR: 0.004 | CSR: 0 | 3.4 ep/s | ETA: 7m
+Episode   8600 | Avg Reward:     4.65 | MTTD:  15 | MTTR: 200 | FPR: 0.001 | CSR: 0 | 3.4 ep/s | ETA: 7m
+Episode   8700 | Avg Reward:     5.81 | MTTD:  16 | MTTR:  32 | FPR: 0.002 | CSR: 1 | 3.4 ep/s | ETA: 6m
+Episode   8800 | Avg Reward:     4.53 | MTTD:   8 | MTTR:  93 | FPR: 0.010 | CSR: 1 | 3.4 ep/s | ETA: 6m
+Episode   8900 | Avg Reward:     4.14 | MTTD:   5 | MTTR:  48 | FPR: 0.000 | CSR: 1 | 3.4 ep/s | ETA: 5m
+Episode   9000 | Avg Reward:     6.07 | MTTD:  32 | MTTR:  67 | FPR: 0.000 | CSR: 1 | 3.4 ep/s | ETA: 5m
+Episode   9100 | Avg Reward:     3.21 | MTTD:  30 | MTTR: 200 | FPR: 0.006 | CSR: 0 | 3.4 ep/s | ETA: 4m
+Episode   9200 | Avg Reward:     4.62 | MTTD:  62 | MTTR: 200 | FPR: 0.005 | CSR: 0 | 3.5 ep/s | ETA: 4m
+Episode   9300 | Avg Reward:     6.50 | MTTD:  37 | MTTR: 200 | FPR: 0.002 | CSR: 0 | 3.5 ep/s | ETA: 3m
+Episode   9400 | Avg Reward:     4.79 | MTTD:  10 | MTTR: 200 | FPR: 0.001 | CSR: 0 | 3.5 ep/s | ETA: 3m
+Episode   9500 | Avg Reward:     4.96 | MTTD:  20 | MTTR:  62 | FPR: 0.002 | CSR: 1 | 3.5 ep/s | ETA: 2m
+Episode   9600 | Avg Reward:     6.26 | MTTD:  17 | MTTR:  21 | FPR: 0.001 | CSR: 1 | 3.5 ep/s | ETA: 2m
+Episode   9700 | Avg Reward:     5.77 | MTTD:   8 | MTTR: 200 | FPR: 0.000 | CSR: 0 | 3.6 ep/s | ETA: 1m
+Episode   9800 | Avg Reward:     5.40 | MTTD:  25 | MTTR: 200 | FPR: 0.002 | CSR: 0 | 3.6 ep/s | ETA: 1m
+Episode   9900 | Avg Reward:     5.71 | MTTD:   4 | MTTR:  39 | FPR: 0.001 | CSR: 1 | 3.6 ep/s | ETA: 0m
+Episode  10000 | Avg Reward:     4.95 | MTTD:  19 | MTTR:  72 | FPR: 0.001 | CSR: 1 | 3.6 ep/s | ETA: 0m
+
+Training complete in 46.3 minutes. Best reward: 15.56
+Logs saved to: checkpoints/train_seed42.csv
