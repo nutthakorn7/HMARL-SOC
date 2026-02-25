@@ -1,0 +1,23 @@
+Training: iql, seed=789, episodes=10000
+Episode    500 | Reward: -277.39 | MTTD: 200
+Episode   1000 | Reward: -82.14 | MTTD: 200
+Episode   1500 | Reward: -36.71 | MTTD: 200
+Episode   2000 | Reward: -26.81 | MTTD: 200
+Episode   2500 | Reward: -28.93 | MTTD: 200
+Episode   3000 | Reward: -11.98 | MTTD: 200
+Episode   3500 | Reward: -26.26 | MTTD: 200
+Episode   4000 | Reward: -27.15 | MTTD: 200
+Episode   4500 | Reward: -12.50 | MTTD: 200
+Episode   5000 | Reward: -29.98 | MTTD: 200
+Episode   5500 | Reward: -28.62 | MTTD: 200
+Episode   6000 | Reward: -24.86 | MTTD: 200
+Episode   6500 | Reward: -30.70 | MTTD: 200
+Episode   7000 | Reward: -31.76 | MTTD: 200
+Episode   7500 | Reward: -24.76 | MTTD: 200
+Episode   8000 | Reward: -8.54 | MTTD: 200
+Episode   8500 | Reward: -23.68 | MTTD: 200
+Episode   9000 | Reward: -29.63 | MTTD: 200
+Episode   9500 | Reward: -28.62 | MTTD: 200
+Episode  10000 | Reward: -12.18 | MTTD: 200
+IQL done. Saved to checkpoints/train_iql_seed789.csv
+Done in 136.7 min
