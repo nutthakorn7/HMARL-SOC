@@ -1,0 +1,6 @@
+Device: mps, Seed: 456, Workers: 1
+torch.compile: skipped (Python 3.9, needs 3.10+)
+Mixed precision: enabled (torch.float16)
+Replay buffer: prioritized (standard)
+Starting training: 10000 episodes, K=5, workers=1
+============================================================

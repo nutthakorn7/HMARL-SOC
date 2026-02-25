@@ -1,6 +1,109 @@
 Device: mps, Seed: 123, Workers: 1
-torch.compile: enabled for SC (aot_eager)
+torch.compile: skipped (Python 3.9, needs 3.10+)
 Mixed precision: enabled (torch.float16)
 Replay buffer: prioritized (standard)
 Starting training: 10000 episodes, K=5, workers=1
 ============================================================
+Episode    100 | Avg Reward:  -114.32 | MTTD:  12 | MTTR:  14 | FPR: 0.019 | CSR: 1 | 2.5 ep/s | ETA: 67m
+Episode    200 | Avg Reward:  -102.88 | MTTD:  16 | MTTR:  31 | FPR: 0.013 | CSR: 1 | 2.9 ep/s | ETA: 57m
+Episode    300 | Avg Reward:   -91.03 | MTTD:  17 | MTTR: 200 | FPR: 0.014 | CSR: 0 | 3.0 ep/s | ETA: 54m
+Episode    400 | Avg Reward:   -74.47 | MTTD:  22 | MTTR:  41 | FPR: 0.015 | CSR: 1 | 3.1 ep/s | ETA: 52m
+Episode    500 | Avg Reward:   -72.76 | MTTD:  17 | MTTR:  26 | FPR: 0.019 | CSR: 1 | 3.1 ep/s | ETA: 51m
+Episode    600 | Avg Reward:  -107.85 | MTTD:   6 | MTTR: 100 | FPR: 0.014 | CSR: 1 | 3.0 ep/s | ETA: 52m
+Episode    700 | Avg Reward:   -75.73 | MTTD:   7 | MTTR: 200 | FPR: 0.014 | CSR: 0 | 3.1 ep/s | ETA: 51m
+Episode    800 | Avg Reward:   -96.93 | MTTD:  14 | MTTR:  33 | FPR: 0.015 | CSR: 1 | 3.0 ep/s | ETA: 50m
+Episode    900 | Avg Reward:   -96.46 | MTTD:   6 | MTTR:  60 | FPR: 0.015 | CSR: 1 | 3.0 ep/s | ETA: 50m
+Episode   1000 | Avg Reward:   -98.01 | MTTD:   5 | MTTR:   6 | FPR: 0.009 | CSR: 1 | 3.0 ep/s | ETA: 50m
+Episode   1100 | Avg Reward:   -97.60 | MTTD:  12 | MTTR:  69 | FPR: 0.016 | CSR: 1 | 2.9 ep/s | ETA: 51m
+Episode   1200 | Avg Reward:   -88.60 | MTTD:  11 | MTTR:  27 | FPR: 0.014 | CSR: 1 | 2.9 ep/s | ETA: 51m
+Episode   1300 | Avg Reward:   -80.37 | MTTD:  12 | MTTR:  23 | FPR: 0.016 | CSR: 1 | 2.9 ep/s | ETA: 50m
+Episode   1400 | Avg Reward:   -96.30 | MTTD:  17 | MTTR:  37 | FPR: 0.013 | CSR: 1 | 2.9 ep/s | ETA: 50m
+Episode   1500 | Avg Reward:   -84.45 | MTTD:  11 | MTTR:  36 | FPR: 0.011 | CSR: 1 | 3.0 ep/s | ETA: 48m
+Episode   1600 | Avg Reward:   -95.07 | MTTD:  11 | MTTR:  59 | FPR: 0.013 | CSR: 1 | 3.0 ep/s | ETA: 46m
+Episode   1700 | Avg Reward:  -103.19 | MTTD:  49 | MTTR:  77 | FPR: 0.009 | CSR: 1 | 3.1 ep/s | ETA: 45m
+Episode   1800 | Avg Reward:   -82.56 | MTTD:  10 | MTTR: 200 | FPR: 0.011 | CSR: 0 | 3.1 ep/s | ETA: 44m
+Episode   1900 | Avg Reward:   -87.19 | MTTD:   8 | MTTR: 119 | FPR: 0.013 | CSR: 1 | 3.2 ep/s | ETA: 43m
+Episode   2000 | Avg Reward:   -78.08 | MTTD:   9 | MTTR:  91 | FPR: 0.008 | CSR: 1 | 3.2 ep/s | ETA: 42m
+Episode   2100 | Avg Reward:   -74.78 | MTTD:  42 | MTTR:  45 | FPR: 0.013 | CSR: 1 | 3.2 ep/s | ETA: 41m
+Episode   2200 | Avg Reward:   -67.65 | MTTD:   7 | MTTR:  12 | FPR: 0.010 | CSR: 1 | 3.2 ep/s | ETA: 40m
+Episode   2300 | Avg Reward:   -58.88 | MTTD:  18 | MTTR:  68 | FPR: 0.008 | CSR: 1 | 3.2 ep/s | ETA: 40m
+Episode   2400 | Avg Reward:   -67.39 | MTTD:  24 | MTTR:  34 | FPR: 0.009 | CSR: 1 | 3.2 ep/s | ETA: 39m
+Episode   2500 | Avg Reward:   -56.07 | MTTD:  17 | MTTR: 200 | FPR: 0.007 | CSR: 0 | 3.2 ep/s | ETA: 39m
+Episode   2600 | Avg Reward:   -43.92 | MTTD: 103 | MTTR: 104 | FPR: 0.007 | CSR: 1 | 3.2 ep/s | ETA: 38m
+Episode   2700 | Avg Reward:   -46.01 | MTTD:  52 | MTTR: 103 | FPR: 0.007 | CSR: 1 | 3.2 ep/s | ETA: 38m
+Episode   2800 | Avg Reward:   -47.78 | MTTD:  12 | MTTR: 127 | FPR: 0.008 | CSR: 1 | 3.2 ep/s | ETA: 38m
+Episode   2900 | Avg Reward:   -34.02 | MTTD:  46 | MTTR: 180 | FPR: 0.004 | CSR: 1 | 3.2 ep/s | ETA: 37m
+Episode   3000 | Avg Reward:   -33.85 | MTTD:  28 | MTTR: 127 | FPR: 0.004 | CSR: 1 | 3.2 ep/s | ETA: 37m
+Episode   3100 | Avg Reward:   -27.89 | MTTD:   5 | MTTR: 200 | FPR: 0.005 | CSR: 0 | 3.1 ep/s | ETA: 37m
+Episode   3200 | Avg Reward:   -23.73 | MTTD:  11 | MTTR: 103 | FPR: 0.004 | CSR: 1 | 3.1 ep/s | ETA: 36m
+Episode   3300 | Avg Reward:   -20.05 | MTTD:  37 | MTTR:  37 | FPR: 0.004 | CSR: 1 | 3.1 ep/s | ETA: 36m
+Episode   3400 | Avg Reward:   -15.92 | MTTD:  51 | MTTR: 139 | FPR: 0.004 | CSR: 1 | 3.0 ep/s | ETA: 36m
+Episode   3500 | Avg Reward:   -14.20 | MTTD:  31 | MTTR: 108 | FPR: 0.003 | CSR: 1 | 3.0 ep/s | ETA: 36m
+Episode   3600 | Avg Reward:    -9.05 | MTTD:  19 | MTTR:  55 | FPR: 0.001 | CSR: 1 | 3.0 ep/s | ETA: 36m
+Episode   3700 | Avg Reward:    -9.92 | MTTD:  13 | MTTR:  70 | FPR: 0.002 | CSR: 1 | 2.9 ep/s | ETA: 36m
+Episode   3800 | Avg Reward:    -7.75 | MTTD:   7 | MTTR: 200 | FPR: 0.002 | CSR: 0 | 2.9 ep/s | ETA: 36m
+Episode   3900 | Avg Reward:    -6.70 | MTTD:  79 | MTTR:  81 | FPR: 0.003 | CSR: 1 | 2.9 ep/s | ETA: 36m
+Episode   4000 | Avg Reward:    -4.89 | MTTD:  15 | MTTR: 200 | FPR: 0.002 | CSR: 0 | 2.8 ep/s | ETA: 36m
+Episode   4100 | Avg Reward:    -3.91 | MTTD:  84 | MTTR:  89 | FPR: 0.001 | CSR: 1 | 2.8 ep/s | ETA: 36m
+Episode   4200 | Avg Reward:    -3.28 | MTTD:  31 | MTTR:  75 | FPR: 0.002 | CSR: 1 | 2.7 ep/s | ETA: 36m
+Episode   4300 | Avg Reward:    -2.19 | MTTD:  52 | MTTR: 200 | FPR: 0.001 | CSR: 0 | 2.7 ep/s | ETA: 35m
+Episode   4400 | Avg Reward:    -1.80 | MTTD:  80 | MTTR: 200 | FPR: 0.002 | CSR: 0 | 2.7 ep/s | ETA: 35m
+Episode   4500 | Avg Reward:     0.18 | MTTD:  23 | MTTR: 160 | FPR: 0.001 | CSR: 1 | 2.6 ep/s | ETA: 35m
+Episode   4600 | Avg Reward:    -0.16 | MTTD:   6 | MTTR: 170 | FPR: 0.002 | CSR: 1 | 2.6 ep/s | ETA: 34m
+Episode   4700 | Avg Reward:    -1.50 | MTTD:   8 | MTTR: 200 | FPR: 0.002 | CSR: 0 | 2.6 ep/s | ETA: 34m
+Episode   4800 | Avg Reward:     0.30 | MTTD:  35 | MTTR: 200 | FPR: 0.006 | CSR: 0 | 2.6 ep/s | ETA: 33m
+Episode   4900 | Avg Reward:     1.11 | MTTD:  66 | MTTR: 109 | FPR: 0.005 | CSR: 1 | 2.6 ep/s | ETA: 33m
+Episode   5000 | Avg Reward:     0.89 | MTTD:  43 | MTTR:  43 | FPR: 0.003 | CSR: 1 | 2.6 ep/s | ETA: 32m
+Episode   5100 | Avg Reward:     0.33 | MTTD:  26 | MTTR:  89 | FPR: 0.002 | CSR: 1 | 2.5 ep/s | ETA: 32m
+Episode   5200 | Avg Reward:     2.51 | MTTD:  13 | MTTR: 142 | FPR: 0.001 | CSR: 1 | 2.5 ep/s | ETA: 32m
+Episode   5300 | Avg Reward:     1.29 | MTTD:  21 | MTTR: 200 | FPR: 0.001 | CSR: 0 | 2.5 ep/s | ETA: 31m
+Episode   5400 | Avg Reward:     1.83 | MTTD:  21 | MTTR: 200 | FPR: 0.002 | CSR: 0 | 2.5 ep/s | ETA: 31m
+Episode   5500 | Avg Reward:     2.39 | MTTD:  17 | MTTR: 116 | FPR: 0.004 | CSR: 1 | 2.5 ep/s | ETA: 30m
+Episode   5600 | Avg Reward:     1.92 | MTTD:  21 | MTTR:  98 | FPR: 0.001 | CSR: 1 | 2.4 ep/s | ETA: 30m
+Episode   5700 | Avg Reward:     0.79 | MTTD:  63 | MTTR: 200 | FPR: 0.001 | CSR: 0 | 2.4 ep/s | ETA: 30m
+Episode   5800 | Avg Reward:     2.74 | MTTD:  11 | MTTR:  77 | FPR: 0.001 | CSR: 1 | 2.4 ep/s | ETA: 29m
+Episode   5900 | Avg Reward:     3.08 | MTTD: 111 | MTTR: 118 | FPR: 0.002 | CSR: 1 | 2.4 ep/s | ETA: 28m
+Episode   6000 | Avg Reward:     1.93 | MTTD:  47 | MTTR: 200 | FPR: 0.001 | CSR: 0 | 2.4 ep/s | ETA: 28m
+Episode   6100 | Avg Reward:     3.28 | MTTD:  41 | MTTR: 148 | FPR: 0.001 | CSR: 1 | 2.4 ep/s | ETA: 27m
+Episode   6200 | Avg Reward:     4.45 | MTTD:   9 | MTTR:  40 | FPR: 0.002 | CSR: 1 | 2.4 ep/s | ETA: 27m
+Episode   6300 | Avg Reward:     3.68 | MTTD:  13 | MTTR:  88 | FPR: 0.000 | CSR: 1 | 2.3 ep/s | ETA: 26m
+Episode   6400 | Avg Reward:     4.43 | MTTD:   7 | MTTR: 200 | FPR: 0.003 | CSR: 0 | 2.3 ep/s | ETA: 26m
+Episode   6500 | Avg Reward:     5.36 | MTTD:  23 | MTTR:  23 | FPR: 0.002 | CSR: 1 | 2.3 ep/s | ETA: 26m
+Episode   6600 | Avg Reward:     5.15 | MTTD:  11 | MTTR:  52 | FPR: 0.001 | CSR: 1 | 2.3 ep/s | ETA: 25m
+Episode   6700 | Avg Reward:     5.40 | MTTD:  22 | MTTR: 113 | FPR: 0.001 | CSR: 1 | 2.3 ep/s | ETA: 24m
+Episode   6800 | Avg Reward:     4.05 | MTTD: 112 | MTTR: 143 | FPR: 0.001 | CSR: 1 | 2.3 ep/s | ETA: 24m
+Episode   6900 | Avg Reward:     5.05 | MTTD:  21 | MTTR: 146 | FPR: 0.001 | CSR: 1 | 2.3 ep/s | ETA: 23m
+Episode   7000 | Avg Reward:     5.28 | MTTD:  13 | MTTR: 200 | FPR: 0.002 | CSR: 0 | 2.2 ep/s | ETA: 22m
+Episode   7100 | Avg Reward:     4.85 | MTTD:  28 | MTTR:  82 | FPR: 0.001 | CSR: 1 | 2.2 ep/s | ETA: 22m
+Episode   7200 | Avg Reward:     6.14 | MTTD:  38 | MTTR: 200 | FPR: 0.002 | CSR: 0 | 2.2 ep/s | ETA: 21m
+Episode   7300 | Avg Reward:     6.25 | MTTD:  34 | MTTR: 200 | FPR: 0.001 | CSR: 0 | 2.2 ep/s | ETA: 20m
+Episode   7400 | Avg Reward:     6.36 | MTTD:  19 | MTTR: 200 | FPR: 0.004 | CSR: 0 | 2.2 ep/s | ETA: 19m
+Episode   7500 | Avg Reward:     6.41 | MTTD:  56 | MTTR:  73 | FPR: 0.004 | CSR: 1 | 2.2 ep/s | ETA: 19m
+Episode   7600 | Avg Reward:     5.23 | MTTD:  26 | MTTR: 148 | FPR: 0.000 | CSR: 1 | 2.2 ep/s | ETA: 18m
+Episode   7700 | Avg Reward:     7.05 | MTTD:  27 | MTTR:  27 | FPR: 0.003 | CSR: 1 | 2.2 ep/s | ETA: 17m
+Episode   7800 | Avg Reward:     6.67 | MTTD: 200 | MTTR: 200 | FPR: 0.015 | CSR: 0 | 2.2 ep/s | ETA: 16m
+Episode   7900 | Avg Reward:     5.52 | MTTD:  16 | MTTR:  83 | FPR: 0.002 | CSR: 1 | 2.2 ep/s | ETA: 16m
+Episode   8000 | Avg Reward:     6.39 | MTTD:  12 | MTTR:  89 | FPR: 0.005 | CSR: 1 | 2.2 ep/s | ETA: 15m
+Episode   8100 | Avg Reward:     7.30 | MTTD:  16 | MTTR: 200 | FPR: 0.002 | CSR: 0 | 2.2 ep/s | ETA: 14m
+Episode   8200 | Avg Reward:     6.06 | MTTD:   5 | MTTR:  77 | FPR: 0.003 | CSR: 1 | 2.2 ep/s | ETA: 13m
+Episode   8300 | Avg Reward:     7.35 | MTTD:  38 | MTTR:  41 | FPR: 0.007 | CSR: 1 | 2.2 ep/s | ETA: 13m
+Episode   8400 | Avg Reward:     8.13 | MTTD:   7 | MTTR:  29 | FPR: 0.001 | CSR: 1 | 2.2 ep/s | ETA: 12m
+Episode   8500 | Avg Reward:     7.68 | MTTD: 200 | MTTR: 200 | FPR: 0.006 | CSR: 0 | 2.2 ep/s | ETA: 11m
+Episode   8600 | Avg Reward:     7.13 | MTTD:  29 | MTTR:  62 | FPR: 0.003 | CSR: 1 | 2.3 ep/s | ETA: 10m
+Episode   8700 | Avg Reward:     7.57 | MTTD:   6 | MTTR:  19 | FPR: 0.001 | CSR: 1 | 2.3 ep/s | ETA: 10m
+Episode   8800 | Avg Reward:     7.87 | MTTD:   9 | MTTR:  67 | FPR: 0.001 | CSR: 1 | 2.3 ep/s | ETA: 9m
+Episode   8900 | Avg Reward:     8.20 | MTTD:   9 | MTTR:  80 | FPR: 0.002 | CSR: 1 | 2.3 ep/s | ETA: 8m
+Episode   9000 | Avg Reward:     7.53 | MTTD:  22 | MTTR:  42 | FPR: 0.003 | CSR: 1 | 2.3 ep/s | ETA: 7m
+Episode   9100 | Avg Reward:     9.02 | MTTD:   4 | MTTR:   4 | FPR: 0.000 | CSR: 1 | 2.3 ep/s | ETA: 7m
+Episode   9200 | Avg Reward:     8.30 | MTTD:  17 | MTTR: 132 | FPR: 0.006 | CSR: 1 | 2.3 ep/s | ETA: 6m
+Episode   9300 | Avg Reward:     7.91 | MTTD:  16 | MTTR:  38 | FPR: 0.001 | CSR: 1 | 2.3 ep/s | ETA: 5m
+Episode   9400 | Avg Reward:     6.55 | MTTD:   8 | MTTR:  49 | FPR: 0.001 | CSR: 1 | 2.3 ep/s | ETA: 4m
+Episode   9500 | Avg Reward:     5.60 | MTTD:  13 | MTTR:  40 | FPR: 0.001 | CSR: 1 | 2.3 ep/s | ETA: 4m
+Episode   9600 | Avg Reward:     7.32 | MTTD:   9 | MTTR: 127 | FPR: 0.001 | CSR: 1 | 2.3 ep/s | ETA: 3m
+Episode   9700 | Avg Reward:     8.37 | MTTD:  16 | MTTR:  25 | FPR: 0.001 | CSR: 1 | 2.3 ep/s | ETA: 2m
+Episode   9800 | Avg Reward:     7.46 | MTTD:  13 | MTTR:  41 | FPR: 0.010 | CSR: 1 | 2.3 ep/s | ETA: 1m
+Episode   9900 | Avg Reward:     7.47 | MTTD:  17 | MTTR: 177 | FPR: 0.000 | CSR: 1 | 2.3 ep/s | ETA: 1m
+Episode  10000 | Avg Reward:     8.34 | MTTD:  23 | MTTR: 200 | FPR: 0.001 | CSR: 0 | 2.4 ep/s | ETA: 0m
+
+Training complete in 70.9 minutes. Best reward: 13.45
+Logs saved to: checkpoints/train_wo_sc_seed123.csv

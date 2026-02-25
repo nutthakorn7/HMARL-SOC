@@ -187,7 +187,9 @@ class UniformReplayBuffer:
 
 def train_fast(config: dict, seed: int = 42, num_episodes: int = None,
                eval_interval: int = None, save_dir: str = "checkpoints",
-               num_workers: int = 4, fast_buffer: bool = False):
+               num_workers: int = 4, fast_buffer: bool = False,
+               no_sc: bool = False, no_shared_buffer: bool = False,
+               ablation_tag: str = ""):
     """
     Optimized training with vectorized environments.
     
@@ -274,7 +276,8 @@ def train_fast(config: dict, seed: int = 42, num_episodes: int = None,
     
     # ---- Optimization 3: Reduced I/O ----
     os.makedirs(save_dir, exist_ok=True)
-    log_file = os.path.join(save_dir, f"train_seed{seed}.csv")
+    tag = f"_{ablation_tag}" if ablation_tag else ""
+    log_file = os.path.join(save_dir, f"train{tag}_seed{seed}.csv")
     log_handle = open(log_file, "w")
     log_handle.write("episode,reward,mttd,mttr,fpr,csr,compromised\n")
     
@@ -375,29 +378,47 @@ def train_fast(config: dict, seed: int = 42, num_episodes: int = None,
             
             # Final reward for episode end
             sc.store_reward(cumulated, True)
-            sc.update(epochs=4)
+            if not no_sc:
+                sc.update(epochs=4)
+            # else: SC doesn't learn, giving random directives
             
             # Update operational agents with buffer samples
             if len(buffer) >= batch_size:
-                for _ in range(max(1, len(transitions) // 50)):  # Multiple updates per episode
+                for _ in range(max(1, len(transitions) // 50)):
                     batch, indices, weights = buffer.sample(batch_size, device)
                     
-                    # ---- Mixed precision wrapper ----
                     with torch.autocast(device_type=amp_device, dtype=amp_dtype, enabled=use_amp):
                         # Update TH (SAC)
                         th_info = th.update(batch, weights)
                         
-                        # Update AT (DQN)
-                        at_info = at.update(batch, weights)
-                        
-                        # Update RO (MADDPG)
-                        all_obs = torch.cat([batch["obs_sc"], batch["obs_th"],
-                                             batch["obs_at"], batch["obs_ro"]], dim=-1)
-                        all_actions = torch.cat([batch["act_sc"], batch["act_th"],
-                                                 batch["act_at"], batch["act_ro"]], dim=-1)
-                        all_next_obs = torch.cat([batch["next_obs_sc"], batch["next_obs_th"],
-                                                  batch["next_obs_at"], batch["next_obs_ro"]], dim=-1)
-                        ro_info = ro.update(batch, all_obs, all_actions, all_next_obs, weights)
+                        if no_shared_buffer:
+                            # Separate updates: each agent only sees its own transitions
+                            # AT and RO don't benefit from TH transitions and vice versa
+                            at_info = at.update(batch, weights)
+                            # RO critic still needs correct input dims, but zero out
+                            # other agents' obs to simulate no info sharing
+                            zero_sc = torch.zeros_like(batch["obs_sc"])
+                            zero_th = torch.zeros_like(batch["obs_th"])
+                            zero_at = torch.zeros_like(batch["obs_at"])
+                            all_obs = torch.cat([zero_sc, zero_th,
+                                                 zero_at, batch["obs_ro"]], dim=-1)
+                            all_actions = torch.cat([batch["act_sc"], batch["act_th"],
+                                                     batch["act_at"], batch["act_ro"]], dim=-1)
+                            all_next_obs = torch.cat([torch.zeros_like(batch["next_obs_sc"]),
+                                                      torch.zeros_like(batch["next_obs_th"]),
+                                                      torch.zeros_like(batch["next_obs_at"]),
+                                                      batch["next_obs_ro"]], dim=-1)
+                            ro_info = ro.update(batch, all_obs, all_actions, all_next_obs, weights)
+                        else:
+                            # Standard shared buffer: all agents learn from all transitions
+                            at_info = at.update(batch, weights)
+                            all_obs = torch.cat([batch["obs_sc"], batch["obs_th"],
+                                                 batch["obs_at"], batch["obs_ro"]], dim=-1)
+                            all_actions = torch.cat([batch["act_sc"], batch["act_th"],
+                                                     batch["act_at"], batch["act_ro"]], dim=-1)
+                            all_next_obs = torch.cat([batch["next_obs_sc"], batch["next_obs_th"],
+                                                      batch["next_obs_at"], batch["next_obs_ro"]], dim=-1)
+                            ro_info = ro.update(batch, all_obs, all_actions, all_next_obs, weights)
                     
                     # Update priorities (no-op for uniform buffer)
                     td_errors = (np.abs(th_info["td_errors"]) +
@@ -479,12 +500,20 @@ def main():
                         help="Number of parallel env workers (default: 4)")
     parser.add_argument("--fast-buffer", action="store_true",
                         help="Use uniform replay buffer instead of prioritized (faster)")
+    parser.add_argument("--no-sc", action="store_true",
+                        help="Ablation: disable SC learning (random directives)")
+    parser.add_argument("--no-shared-buffer", action="store_true",
+                        help="Ablation: separate replay buffers per agent")
+    parser.add_argument("--ablation-tag", type=str, default="",
+                        help="Tag for ablation CSV filename (e.g. 'wo_sc')")
     args = parser.parse_args()
     
     config = load_config(args.config)
     train_fast(config, seed=args.seed, num_episodes=args.episodes,
                eval_interval=args.eval_interval, save_dir=args.save_dir,
-               num_workers=args.workers, fast_buffer=args.fast_buffer)
+               num_workers=args.workers, fast_buffer=args.fast_buffer,
+               no_sc=args.no_sc, no_shared_buffer=args.no_shared_buffer,
+               ablation_tag=args.ablation_tag)
 
 
 if __name__ == "__main__":
